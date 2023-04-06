@@ -1,8 +1,12 @@
 import poke_api
+import image_lib
 from tkinter import *
 from tkinter import ttk
 import os
 import ctypes
+
+""" Creates a GUI Where the user can select a pokemon, and then change their desktop backgroud to that pokemon.
+"""
 
 # Get the path of the script and its parent directory
 script_path = os.path.abspath(__file__)
@@ -42,8 +46,9 @@ cbox_poke_names = ttk.Combobox(frame, values=pokemon_name_list, state='readonly'
 cbox_poke_names.set("Select a Pokemon")
 cbox_poke_names.grid(row=1, column=0, padx=10, pady=10)
 
-
 def handle_poke_sel(event):
+    """The user selects a pokemon from the PokeAPI.
+    """
     # Get the name of the selected Pokemon
     pokemon_name = cbox_poke_names.get()
 
@@ -54,11 +59,17 @@ def handle_poke_sel(event):
     # Display the Pokemon artwork
     if image_path is not None:
         img_poke['file'] = image_path
+        # When the user selects a pokemon allows them to use the button
+        btn_set_desktop.state(['!disabled']) 
 
 cbox_poke_names.bind('<<ComboboxSelected>>', handle_poke_sel)
 
-btn_set_desktop = ttk.Button(frame, text='Set as Desktop Image')
+def poke_desktop_background():
+    """ Sets the desktop background image to a specific image.
+    """
+    image_lib.set_desktop_background_image(image_path)
+
+btn_set_desktop = ttk.Button(frame, text='Set as Desktop Image', command=poke_desktop_background, state=DISABLED)
 btn_set_desktop.grid(row=2, column=0, padx=10, pady=10)
 
-# TODO: Put code here
 root.mainloop()
