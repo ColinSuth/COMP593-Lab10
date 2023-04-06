@@ -69,6 +69,7 @@ def poke_desktop_background():
     """
     image_lib.set_desktop_background_image(image_path)
 
+# Creates the button with specific parameters
 btn_set_desktop = ttk.Button(frame, text='Set as Desktop Image', command=poke_desktop_background, state=DISABLED)
 btn_set_desktop.grid(row=2, column=0, padx=10, pady=10)
 
